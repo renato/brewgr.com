@@ -20,7 +20,7 @@
         <span>
             <a href="@Url.UserProfileUrl(Model.CreatedByUserName)"><img class="avatar" src="@UserAvatar.GetAvatar(16, Model.CreatedByUserEmail)" alt="" /></a>
             <a href="@Url.UserProfileUrl(Model.CreatedByUserName)">@(ViewBag.ActiveUser != null && Model.WasCreatedBy(ViewBag.ActiveUser.UserId) ? "you" : Model.CreatedByUserName)</a>
-            <small><abbr class="timeago" title="@Model.DateCreated.ToString("g")">@Model.DateCreated</abbr></small>
+            <small><abbr class="timeago" title="@Model.DateCreated.ToString("g")">XX @Model.DateCreated XX </abbr></small>
         </span>
                 
         <ul class="list-unstyled list-inline">

@@ -168,7 +168,7 @@ function general_onReady() {
                             $('.no-tasting-notes').remove();
 
                             $('.tasting-notes').append(result);
-                            wireRatyStar(result.find('span.rating[data-raty-rating]'));
+                            wireRatyStar(result.find('span.rating[data-rating]'));
 
                             // Increment Count
                             var count = parseInt($('#tasting-note-count').html());
@@ -309,8 +309,8 @@ function common_onReady() {
     });
 
     // Existing Rating Stars
-    if ($('span.rating[data-raty-rating]').length > 0) {
-        $('span.rating[data-raty-rating]').each(function (i, e) {
+    if ($('span.rating[data-rating]').length > 0) {
+        $('span.rating[data-rating]').each(function (i, e) {
             wireRatyStar(e);
         });
     }
@@ -859,6 +859,7 @@ function comment_onReady() {
     if ($('.comments-wrapper').length > 0) {
 
         jQuery("abbr.timeago").timeago();
+        $("abbr.timeago").timeago().show();
 
         $('.CommentText').autosize();
         
@@ -890,6 +891,7 @@ function comment_onReady() {
                     self.parent().prev('.CommentText').val('').autosize();
 
                     jQuery("abbr.timeago").timeago();
+                    $("abbr.timeago").timeago().show();
                     return false;
                 }
             });
@@ -929,7 +931,7 @@ function dashboard_onReady() {
             type: 'get',
             success: function (response) {
                 $('#tabfeed').html(response);
-                $('[data-raty-rating]').each(function(i, e) { wireRatyStar(e); });
+                $('[data-rating]').each(function(i, e) { wireRatyStar(e); });
                 comment_onReady();
             }
         });
@@ -944,8 +946,9 @@ function dashboard_onReady() {
                 success: function (response) {
                     $('.dashboard-morespinner').hide();
                     $('#dashboardlist-moreplaceholder').replaceWith(response);
-                    $('[data-raty-rating]').each(function (i, e) { wireRatyStar(e); });
+                    $('[data-rating]').each(function (i, e) { wireRatyStar(e); });
                     jQuery("abbr.timeago").timeago();
+                    $("abbr.timeago").timeago().show();
                     return false;
                 }
             });
@@ -970,6 +973,7 @@ function dashboard_onReady() {
 
                     $('.spinner-recipe .dashboard-more').hide();
                     jQuery("abbr.timeago").timeago();
+                    $("abbr.timeago").timeago().show();
                     return false;
                 }
             });
@@ -993,6 +997,7 @@ function dashboard_onReady() {
 
                     $('#tabrecipes .dashboard-more').hide();
                     jQuery("abbr.timeago").timeago();
+                    $("abbr.timeago").timeago().show();
                     return false;
                 }
             });
@@ -1040,7 +1045,7 @@ function wireRatyStar(element) {
         path: '/img/raty/',
         hints: ['worst beer ever', 'ok', 'good', 'really good', 'best beer ever'],
         readOnly: true,
-        score: $(element).attr('data-raty-rating')
+        score: $(element).attr('data-rating')
     });
 }
 
