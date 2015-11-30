@@ -7,7 +7,7 @@
 <div class="media">
     @if (Model.ShowAddedBy)
     {
-        <h5>@Model.CreatedByUserName added a recipe on @Model.DateCreated</h5>
+        <h5>@Model.CreatedByUserName added a recipe <abbr class="timeago addedby-date" title="@Model.DateCreated.ToString("g")">@Model.DateCreated</abbr></h5>
     }
     <div class="media-left hidden-xs">
         <a href="@Url.RecipeDetailUrl(Model.RecipeId, Model.Name, Model.StyleName)" class="media-object"><img src="@Url.RecipeThumbnailUrl(Model.ImageUrlRoot, Model.Srm)" alt="@Model.Name" height="80" width="80" /></a>
@@ -20,7 +20,7 @@
         <span>
             <a href="@Url.UserProfileUrl(Model.CreatedByUserName)"><img class="avatar" src="@UserAvatar.GetAvatar(16, Model.CreatedByUserEmail)" alt="" /></a>
             <a href="@Url.UserProfileUrl(Model.CreatedByUserName)">@(ViewBag.ActiveUser != null && Model.WasCreatedBy(ViewBag.ActiveUser.UserId) ? "you" : Model.CreatedByUserName)</a>
-            <small><abbr class="timeago" title="@Model.DateCreated.ToString("g")">XX @Model.DateCreated XX </abbr></small>
+            <small><abbr class="timeago" title="@Model.DateCreated.ToString("g")">@Model.DateCreated</abbr></small>
         </span>
                 
         <ul class="list-unstyled list-inline">
