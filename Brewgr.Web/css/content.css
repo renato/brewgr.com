@@ -46,7 +46,7 @@ abbr.timeago { display: none; border: 0; cursor: default; } /* Hide TimeAgo by D
 .comments-wrapper .commenter-image { width: 30px; margin-right: 5px; height: 100%; float: left; }
 .comments-wrapper .commenter-image img { width: 100%; }
 .comments-wrapper .comment-text p { margin: 0; }
-.comments-wrapper .sub-text { color: #aaa; font-family: verdana; font-size: 11px; }
+.comments-wrapper .timeago { color: #aaa; font-size: 11px; }
 
 
 /* ------------------------------------------------------------------------------------------*/

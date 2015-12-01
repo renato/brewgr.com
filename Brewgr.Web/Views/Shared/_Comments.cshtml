@@ -13,7 +13,8 @@
                         <a href="@Url.UserProfileUrl(comment.UserName)"><img src="@comment.UserAvatarUrl" width="30" height="30" alt="@comment.UserName" /></a>
                     </div>
                     <div class="comment-text">
-                        <p>@Html.Partial("_StringWithLineBreaks", comment.CommentText)</p> <span class="date sub-text">on @comment.DateCreated.ToString("g")</span>
+                        <p>@Html.Partial("_StringWithLineBreaks", comment.CommentText)</p>
+                        <abbr class="timeago" title="@comment.DateCreated.ToString("g")">@comment.DateCreated</abbr>
                     </div>
                 </li>
             }
