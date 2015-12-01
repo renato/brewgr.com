@@ -39,9 +39,10 @@ abbr.timeago { display: none; border: 0; cursor: default; } /* Hide TimeAgo by D
 /* ------------------------------------------------------------------------------------------*/
 /* --------- Comments ---------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------*/
-.comments-wrapper { width: 90%; }
+.comments-wrapper { width: 90%; background-color: #f5f5f5; }
 .comments-wrapper .comment-list { padding: 0; list-style: none; }
-.comments-wrapper .comment-list li { margin: 0; margin-top: 10px; }
+.comments-wrapper .comment-list li { margin: 0; margin-top: 10px; border-bottom: solid 1px #ddd; }
+.comments-wrapper .comment-list li:last-child { border-bottom: none; }
 .comments-wrapper .comment-list li > div { display: table-cell; }
 .comments-wrapper .commenter-image { width: 30px; margin-right: 5px; height: 100%; float: left; }
 .comments-wrapper .commenter-image img { width: 100%; }
