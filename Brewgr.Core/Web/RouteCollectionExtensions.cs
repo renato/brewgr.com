@@ -59,7 +59,7 @@ namespace ctorx.Core.Web
 				var controllerName = DetermineControllerName(controllerType);
 
 				// Get the Controller Name used for the URL
-				var controllerUrlPart = DetermineControllerUrlPart(controllerNameMappings, controllerName);
+				var controllerUrlPart = DetermineControllerUrlPart(controllerNameMappings, controllerName.ToLower());
 
 				// Skip ignored controllers
 				if (ignoredControllers != null && ignoredControllers.Select(x => x.ToLower()).Where(x => x == controllerUrlPart).Any())
@@ -73,9 +73,9 @@ namespace ctorx.Core.Web
 				// Create the Routes for the Methods
 				foreach (var actionMethod in methods)
 				{
-					var actionUrlPart = DetermineActionUrlPart(actionMethod);
+					var actionName = DetermineActionName(actionMethod);
 
-					var routeName = string.Concat(controllerUrlPart, "-", actionUrlPart);
+					var routeName = string.Concat(controllerUrlPart, "-", actionName);
 
 					// Check if Route already exists
 					// ( this happens with HttpPosts)
@@ -93,7 +93,7 @@ namespace ctorx.Core.Web
 					}
 
 					// Add the Route
-					AddRouteToCollection(routeCollection, routeName, controllerName, controllerUrlPart, actionUrlPart, parameters);
+					AddRouteToCollection(routeCollection, routeName, controllerName, controllerUrlPart, actionName, parameters);
 					mappedRoutes.Add(routeName);
 				}
 			}
@@ -140,7 +140,7 @@ namespace ctorx.Core.Web
 		/// </summary>
 		static string DetermineControllerName(Type controllerType)
 		{
-			return controllerType.Name.Substring(0, controllerType.Name.ToLower().LastIndexOf("controller")).ToLower();
+			return controllerType.Name.Substring(0, controllerType.Name.ToLower().LastIndexOf("controller"));
 		}
 
 		/// <summary>
@@ -158,30 +158,30 @@ namespace ctorx.Core.Web
 		}
 
 		/// <summary>
-		/// Determines the URL Part for an Action
+		/// Determines the Action Name
 		/// </summary>
-		static string DetermineActionUrlPart(MethodInfo method)
+		static string DetermineActionName(MethodInfo method)
 		{
-			var actionUrlPart = method.Name.ToLower();
+			var actionName = method.Name;
 
 			var explicitActionName = method.GetCustomAttributes(typeof(ActionNameAttribute), true).FirstOrDefault();
 			if (explicitActionName != null)
 			{
-				actionUrlPart = (explicitActionName as ActionNameAttribute).Name;
+				actionName = (explicitActionName as ActionNameAttribute).Name;
 			}
-			return actionUrlPart;
+			return actionName;
 		}
 
 		/// <summary>
 		/// Adds the route to the collection
 		/// </summary>
 		static void AddRouteToCollection(RouteCollection routeCollection, string routeName, string controllerName, string controllerUrlPart, 
-			string actionUrlPart, IEnumerable<string> parameters)
+			string actionName, IEnumerable<string> parameters)
 		{
 			var routePath = string.Format("{0}{1}{2}",
 				controllerUrlPart,
 				!string.IsNullOrWhiteSpace(controllerUrlPart) ? "/" : "",
-				actionUrlPart);
+				actionName.ToLower());
 
 			// Set the Id Parameters
 			if(parameters != null)
@@ -192,7 +192,7 @@ namespace ctorx.Core.Web
 			routeCollection.MapRoute(
 				routeName,
 				routePath,
-				new { controller = controllerName, action = actionUrlPart }
+				new { controller = controllerName, action = actionName }
 			);			
 		}
 	}
