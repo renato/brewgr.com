@@ -121,6 +121,8 @@
     <Compile Include="Data\CacheExpirationType.cs" />
     <Compile Include="Data\CacheLifetimeType.cs" />
     <Compile Include="Data\ContextRepository.cs" />
+    <Compile Include="Data\DataProviderFactory.cs" />
+    <Compile Include="Data\DbProviderDependencyResolver.cs" />
     <Compile Include="Data\DefaultDataContextFactory.cs" />
     <Compile Include="Data\DefaultDataContextResolver.cs" />
     <Compile Include="Data\DefaultDbContextFactory.cs" />
@@ -137,14 +139,17 @@
     <Compile Include="Data\IDataContextActivationInfo.cs" />
     <Compile Include="Data\IDataContextFactory.cs" />
     <Compile Include="Data\IDataContextResolver.cs" />
+    <Compile Include="Data\IDataProvider.cs" />
     <Compile Include="Data\IDbContextActivationInfo.cs" />
     <Compile Include="Data\IDbContextResolver.cs" />
     <Compile Include="Data\IEntityRepository.cs" />
     <Compile Include="Data\IUnitOfWork.cs" />
     <Compile Include="Data\IUnitOfWorkFactory.cs" />
     <Compile Include="Data\NeverExpiresCacheExpirationSettings.cs" />
+    <Compile Include="Data\NpgsqlDataProvider.cs" />
     <Compile Include="Data\ReadOnlyContextRepository.cs" />
     <Compile Include="Data\SlidingCacheExpirationSettings.cs" />
+    <Compile Include="Data\SqlClientDataProvider.cs" />
     <Compile Include="Data\SqlQueryCommand.cs" />
     <Compile Include="Data\StoredProcedureCommand.cs" />
     <Compile Include="Data\UnitOfWork.cs" />
