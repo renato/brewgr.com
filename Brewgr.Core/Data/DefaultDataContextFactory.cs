@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity;
 
 namespace ctorx.Core.Data
 {
@@ -12,6 +13,13 @@ namespace ctorx.Core.Data
 		public DefaultDataContextFactory(IDataContextActivationInfo<TDataContext> dataContextActivationInfo)
 		{
 			this.DataContextActivationInfo = dataContextActivationInfo;
+
+			IDataProvider provider = DataProviderFactory.Make(this.DataContextActivationInfo.ProviderName);
+
+			DbConfiguration.Loaded += (_, a) =>
+				{
+					a.AddDependencyResolver(new DbProviderDependencyResolver(provider), true);
+				};
 		}
 
 		/// <summary>

@@ -11,7 +11,7 @@ namespace ctorx.Core.Data
 		/// <summary>
 		/// ctor the Mighty
 		/// </summary>
-		private StoredProcedureCommand(string procedureName) : base(CommandType.StoredProcedure, procedureName)
+		private StoredProcedureCommand(IDataProvider provider, string procedureName) : base(provider, CommandType.StoredProcedure, procedureName)
 		{
 			if(string.IsNullOrWhiteSpace(procedureName))
 			{
@@ -22,9 +22,9 @@ namespace ctorx.Core.Data
 		/// <summary>
 		/// Makes a Data Command for use with a Stored Procedure
 		/// </summary>
-		public static IDataCommand Make(string procedureName)
+		public static IDataCommand Make(IDataProvider provider, string procedureName)
 		{
-			return new StoredProcedureCommand(procedureName);
+			return new StoredProcedureCommand(provider, procedureName);
 		}
 	}
 }

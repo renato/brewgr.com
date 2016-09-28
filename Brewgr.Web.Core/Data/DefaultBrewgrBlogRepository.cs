@@ -50,8 +50,10 @@ namespace Brewgr.Web.Core.Data
 				"	 ) " +
 				"ORDER BY " +
 				"	DateCreated DESC";
+            
+            IDataProvider provider = DataProviderFactory.Make(this.BrewgrBlogConnection.ProviderName);
 
-		    using(var command = SqlQueryCommand.Make(query)
+		    using(var command = SqlQueryCommand.Make(provider, query)
 		        .UsingConnection(this.BrewgrBlogConnection.ConnectionString)
 		        .WithParam("@SearchTerm", searchTerm))
 		    {

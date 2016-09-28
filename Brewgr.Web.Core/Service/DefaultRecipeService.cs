@@ -838,7 +838,9 @@ namespace Brewgr.Web.Core.Service
                 throw new ArgumentOutOfRangeException("userId");
             }
 
-		    using(var command = StoredProcedureCommand.Make("GetObjectIdsForDashboard")
+            IDataProvider provider = DataProviderFactory.Make(this.DataContextActivationInfo.ProviderName);
+
+            using(var command = StoredProcedureCommand.Make(provider, "dbo.\"GetObjectIdsForDashboard\"")
 		        .UsingConnection(this.DataContextActivationInfo.ConnectionString)
 		        .WithParam("@UserId", userId)
 		        .WithParam("@Amount", numberToReturn)
@@ -851,7 +853,7 @@ namespace Brewgr.Web.Core.Service
                 // if no results just grab the newest recipes and brews
                 if (results.Tables[0].Rows.Count < 1)
                 {
-                    var resultsNewest = StoredProcedureCommand.Make("GetObjectIdsForDashboardNewest")
+                    var resultsNewest = StoredProcedureCommand.Make(provider, "dbo.\"GetObjectIdsForDashboardNewest\"")
                         .UsingConnection(this.DataContextActivationInfo.ConnectionString)
                         .WithParam("@Amount", numberToReturn)
                         .WithParam("@OlderThanDate", searchOlderThan)

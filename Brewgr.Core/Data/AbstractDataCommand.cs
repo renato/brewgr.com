@@ -1,21 +1,23 @@
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
+using System.Data.Common;
 
 namespace ctorx.Core.Data
 {
 	public abstract class AbstractDataCommand : IDataCommand
 	{
 		string ConnectionString;
-		SqlCommand Command;
+		DbCommand Command;
 	    bool IsDisposed = false;
+		IDataProvider Provider;
 
 		/// <summary>
 		/// ctor the Mighty
 		/// </summary>
-		protected AbstractDataCommand(CommandType commandType, string commandText)
+		protected AbstractDataCommand(IDataProvider provider, CommandType commandType, string commandText)
 		{
+			this.Provider = provider;
 			this.SetCommand(commandType, commandText);
 		}
 
@@ -24,7 +26,7 @@ namespace ctorx.Core.Data
 		/// </summary>
 		void SetCommand(CommandType commandType, string commandText)
 		{
-			this.Command = new SqlCommand(commandText) {CommandType = commandType};
+			this.Command = Provider.GetDbCommand(commandType, commandText);
 		}
 
 		/// <summary>
@@ -68,7 +70,7 @@ namespace ctorx.Core.Data
 		/// </summary>
 		void AddParameter(string parameterName, object value, ParameterDirection parameterDirection = ParameterDirection.Input, int? size = null)
 		{
-			var parameter = new SqlParameter(parameterName, value);
+			var parameter = Provider.GetDbParameter(parameterName, value);
 
 			if (parameterDirection != ParameterDirection.Input)
 			{
@@ -88,7 +90,7 @@ namespace ctorx.Core.Data
 		/// </summary>
 		public int ExecuteNonQuery()
 		{
-			using (var connection = new SqlConnection(this.ConnectionString))
+			using (var connection = Provider.GetDbConnection(this.ConnectionString))
 			{
 				this.Command.Connection = connection;
                 this.Command.Connection.Open();
@@ -101,7 +103,7 @@ namespace ctorx.Core.Data
 		/// </summary>
 		public object ExecuteScalar()
 		{
-			using (var connection = new SqlConnection(this.ConnectionString))
+			using (var connection = Provider.GetDbConnection(this.ConnectionString))
 			{
 				this.Command.Connection = connection;
                 this.Command.Connection.Open(); 
@@ -115,11 +117,11 @@ namespace ctorx.Core.Data
 		public DataSet GetDataSet()
 		{
 			var dataSet = new DataSet();
-			using (var connection = new SqlConnection(this.ConnectionString))
+			using (var connection = Provider.GetDbConnection(this.ConnectionString))
 			{
 				this.Command.Connection = connection;
 
-				using (var adapter = new SqlDataAdapter(this.Command))
+				using (var adapter = Provider.GetDbDataAdapter(this.Command))
 				{
 					adapter.Fill(dataSet);
 					return dataSet;
@@ -132,7 +134,7 @@ namespace ctorx.Core.Data
 		/// </summary>
 		public object GetParameterValue(string parameterName)
 		{
-			return this.Command.Parameters.Cast<SqlParameter>()
+			return this.Command.Parameters.Cast<DbParameter>()
 				.Where(x => x.ParameterName == parameterName)
 				.Select(x => x.Value)
 				.FirstOrDefault();

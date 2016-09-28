@@ -32,6 +32,13 @@ Connection String Setup
 2. Create a system Enviornment Variable named "Brewgr_ConnectionString" and set the value to the connection string determined in step 1 above. 
 3. You may need to reboot your machine for Visual Studio and IIS Express to recognize the variable.
 
+Alternative Database: PostgreSQL
+----------------------------
+1. Use Nuget and add the packages `Npgsql` and `EntityFramework6.Npgsql` to Brewgr.Web
+2. Create a system Environment Variable called "Brewgr_ProviderName" and set it to "Npgsql"
+3. Determine what your valid Npgsql connection string is. If you need help, check out http://www.connectionstrings.com/npgsql/
+4. Change the "Brewgr_ConnectionString" to the connection string determined in step 3 above
+
 Host File Entry
 ----------------------------
 The development environment uses an artificial host name dev.brewgr.com.  In order to make this work, you'll need create a host file entry on your development machine that points dev.brewgr.com to 127.0.0.1.

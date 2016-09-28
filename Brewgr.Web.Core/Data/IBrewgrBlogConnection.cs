@@ -8,5 +8,10 @@ namespace Brewgr.Web.Core.Data
 		/// Gets the connection string
 		/// </summary>
 		string ConnectionString { get; }
+
+		/// <summary>
+		/// Gets the provider name
+		/// </summary>
+		string ProviderName { get; }
 	}
 }

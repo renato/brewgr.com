@@ -8,7 +8,7 @@ namespace ctorx.Core.Data
 		/// <summary>
 		/// ctor the Mighty
 		/// </summary>
-		public SqlQueryCommand(string commandText) : base(CommandType.Text, commandText)
+		public SqlQueryCommand(IDataProvider provider, string commandText) : base(provider, CommandType.Text, commandText)
 		{
 			if(string.IsNullOrWhiteSpace(commandText))
 			{
@@ -19,9 +19,9 @@ namespace ctorx.Core.Data
 		/// <summary>
 		/// Makes a Data Command for use with a Stored Procedure
 		/// </summary>
-		public static IDataCommand Make(string queryText)
+		public static IDataCommand Make(IDataProvider provider, string queryText)
 		{
-			return new SqlQueryCommand(queryText);
+			return new SqlQueryCommand(provider, queryText);
 		}
 	}
 }

@@ -14,5 +14,13 @@ namespace Brewgr.Web
 		        return Environment.GetEnvironmentVariable("Brewgr_ConnectionString");
 		    }
 		}
+
+		public string ProviderName
+		{
+			get
+			{
+				return Environment.GetEnvironmentVariable("Brewgr_ProviderName");
+			}
+		}
 	}
 }

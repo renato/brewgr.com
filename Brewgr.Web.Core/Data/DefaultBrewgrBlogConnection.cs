@@ -14,5 +14,18 @@ namespace Brewgr.Web.Core.Data
                 return Environment.GetEnvironmentVariable("BrewgrBlog_ConnectionString");
             }
         }
+
+        /// <summary>
+        /// Gets the provider name
+        /// </summary>
+        public string ProviderName
+        {
+            get
+            {
+                // TODO Generalize the blog search SQL before accepting additional providers with
+                // return Environment.GetEnvironmentVariable("BrewgrBlog_ProviderName");
+                return "SqlClient";
+            }
+        }
     }
 }
