@@ -1,9 +1,7 @@
 ﻿using System.Data.Common;
 using System.Data;
-using System;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Common;
-using System.Linq;
 
 namespace ctorx.Core.Data
 {
