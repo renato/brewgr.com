@@ -722,8 +722,8 @@ var WaterCalc =
         util.convert('[data-name=s_WortShrinkage]', prevUnit, util.l_To_gal, util.gal_To_l);
         util.convert('[data-name=s_MashTunLoss]', prevUnit, util.l_To_gal, util.gal_To_l);
         util.convert('[data-name=s_BoilLoss]', prevUnit, util.l_To_gal, util.gal_To_l);
-        util.convert('[data-name=s_MashGrainAbsorption]', prevUnit, util.l_To_gal, util.gal_To_l);
-        util.convert('[data-name=s_SpargeGrainAbsorption]', prevUnit, util.l_To_gal, util.gal_To_l);
+        util.convert('[data-name=s_MashGrainAbsorption]', prevUnit, util.l_per_kg_To_gal_per_lb, util.gal_per_lb_To_l_per_kg);
+        util.convert('[data-name=s_SpargeGrainAbsorption]', prevUnit, util.l_per_kg_To_gal_per_lb, util.gal_per_lb_To_l_per_kg);
 
         $('[data-name=s_GrainWeight]').keyup(); // force re-calc (the easy way)
     },
@@ -738,10 +738,10 @@ var WaterCalc =
             wortShrinkage: this.getValue('.wc_wortShrinkage', util.l_To_gal),
             boilTime: this.getValue('.wc_boilTime'),
             boilLoss: this.getValue('.wc_boilLoss', util.l_To_gal),
-            mashThickness: this.getValue('.wc_mashThickness', util.l_To_qt),
+            mashThickness: this.getValue('.wc_mashThickness', util.l_per_kg_To_qt_per_lb),
             mashTunLoss: this.getValue('.wc_mashTunLoss', util.l_To_gal),
-            mashAbsorp: this.getValue('.wc_grainAbsorption', util.l_To_gal),
-            spargeAbsorp: this.getValue('.wc_spargeGrainAbsorption', util.l_To_gal),
+            mashAbsorp: this.getValue('.wc_grainAbsorption', util.l_per_kg_To_gal_per_lb),
+            spargeAbsorp: this.getValue('.wc_spargeGrainAbsorption', util.l_per_kg_To_gal_per_lb),
             mashTemp: this.getValue('.wc_targetMashTemp', util.c_To_f),
             grainTemp: this.getValue('.wc_grainTemp', util.c_To_f)
         };
